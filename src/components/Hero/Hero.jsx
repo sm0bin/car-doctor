@@ -1,56 +1,83 @@
-// import React, { useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import './Hero.css';
-import { Pagination, Navigation } from 'swiper/modules';
-import homeCarousel1 from "../../assets/images/homeCarousel/1.jpg"
-import homeCarousel2 from "../../assets/images/homeCarousel/2.jpg"
-import homeCarousel3 from "../../assets/images/homeCarousel/3.jpg"
-import homeCarousel4 from "../../assets/images/homeCarousel/4.jpg"
+import { useState } from 'react';
+import { RxDotFilled } from 'react-icons/rx';
+import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
+import heroCarousel1 from '../../assets/images/homeCarousel/1.jpg';
+import heroCarousel2 from '../../assets/images/homeCarousel/2.jpg';
+import heroCarousel3 from '../../assets/images/homeCarousel/3.jpg';
+import heroCarousel4 from '../../assets/images/homeCarousel/4.jpg';
 import PrimaryButton from '../PrimaryButton';
-import SecondaryButton from '../SecondaryButton';
-import { useSwiper } from 'swiper/react';
 
-const Hero = () => {
-    const swiper = useSwiper();
+function Hero() {
+    const slides = [
+        {
+            url: heroCarousel1,
+        },
+        {
+            url: heroCarousel2,
+        },
+        {
+            url: heroCarousel3,
+        },
+        {
+            url: heroCarousel4,
+        },
+    ];
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const prevSlide = () => {
+        const isFirstSlide = currentIndex === 0;
+        const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+        setCurrentIndex(newIndex);
+    };
+
+    const nextSlide = () => {
+        const isLastSlide = currentIndex === slides.length - 1;
+        const newIndex = isLastSlide ? 0 : currentIndex + 1;
+        setCurrentIndex(newIndex);
+    };
+
+    const goToSlide = (slideIndex) => {
+        setCurrentIndex(slideIndex);
+    };
+
     return (
-        <Swiper
-            slidesPerView={1}
-            spaceBetween={30}
-            loop={true}
-            pagination={{
-                clickable: true,
-            }}
-            navigation={true}
-            modules={[Pagination, Navigation]}
-            className="mySwiper"
-        >
-            <SwiperSlide>
-                <div className="hero min-h-screen rounded-lg overflow-hidden" style={{ backgroundImage: `url(${homeCarousel1})` }}>
-                    <div className="hero-overlay bg-gradient-to-r from-black/60 to-black/0"></div>
-                    <div className="hero-content text-center text-neutral-content">
-                        <div className="max-w-md">
-                            <h1 className="mb-5 text-5xl font-bold">Affordable Price For Car Servicing</h1>
-                            <p className="mb-5">There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
-                            <PrimaryButton btnText="Discover More"></PrimaryButton>
-                            <SecondaryButton btnText="Latest Project"></SecondaryButton>
-                        </div>
-                    </div>
+        <div className='mt-12 mb-32 hero place-items-start max-w-full h-full w-full m-auto relative group rounded-xl bg-top bg-cover duration-500' style={{ backgroundImage: `url(${slides[currentIndex].url})` }}>
+            {/* <div
+
+                className='w-full h-full rounded-2xl bg-center bg-cover duration-500'
+            ></div> */}
+            <div className="h-full rounded-xl w-4/5 justify-self-start bg-gradient-to-r from-black to-black/0"></div>
+            <div className='m-28 text-white max-w-md space-y-8'>
+                <h1 className='font-bold text-6xl  leading-tight'>Affordable Price For Car Servicing</h1>
+                <p className='text-lg'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
+                <div>
+                    <PrimaryButton btnText='Discover More' />
+                    <button className='btn btn-outline ml-5 border-white hover:border-brandRed-500 font-semibold text-lg text-white  normal-case rounded-md  hover:bg-brandRed-500 hover:text-white'>Latest Project</button>
                 </div>
-            </SwiperSlide>
-
-
-            <SwiperSlide className='res-slide'><img src={homeCarousel2} alt="" /></SwiperSlide>
-            <SwiperSlide className='res-slide'><img src={homeCarousel3} alt="" /></SwiperSlide>
-            <SwiperSlide className='res-slide'><img src={homeCarousel4} alt="" /></SwiperSlide>
-            <div className="swiper-nav-btns absolute bottom-2">
-                <button className='btn' onClick={() => swiper.slidePrev()}>Prev</button>
-                <button className='btn' onClick={() => swiper.slideNext()}>Next</button>
             </div>
-        </Swiper>
+            <div className='absolute bottom-12 right-12 flex gap-5'>
+
+                <div className='rounded-full z-50 p-3 bg-black/20 hover:bg-brandRed-500 text-white cursor-pointer'>
+                    <HiArrowLeft className='text-base' onClick={prevSlide} size={24} />
+                </div>
+                <div className='rounded-full z-50 p-3 bg-brandRed-500 hover:bg-brandRed-600 text-white cursor-pointer'>
+                    <HiArrowRight className='text-base' onClick={nextSlide} size={24} />
+                </div>
+            </div>
+            <div className='flex justify-center py-2 absolute inset-x-0 bottom-12 text-white/30'>
+                {slides.map((slide, slideIndex) => (
+                    <div
+                        key={slideIndex}
+                        onClick={() => goToSlide(slideIndex)}
+                        className='text-2xl cursor-pointer'
+                    >
+                        <RxDotFilled />
+                    </div>
+                ))}
+            </div>
+        </div>
     );
-};
+}
 
 export default Hero;
