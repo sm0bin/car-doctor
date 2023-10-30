@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from '../assets/logo.svg';
+import SecondaryButton from "./SecondaryButton";
 
 const Header = () => {
     const navItems = (
@@ -7,12 +8,14 @@ const Header = () => {
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/about">About</NavLink></li>
             <li><NavLink to="/services">Services</NavLink></li>
-            <li><NavLink to="/blog">Blog</NavLink></li>
-            <li><NavLink to="/contact">Contact</NavLink></li>
+            <li><NavLink to="/login">Login</NavLink></li>
+            <li><NavLink to="/sign-up">Sign Up</NavLink></li>
+            {/* <li><NavLink to="/blog">Blog</NavLink></li>
+            <li><NavLink to="/contact">Contact</NavLink></li> */}
         </>
     )
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 my-12">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -31,7 +34,17 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn btn-outline">Button</a>
+                <button className="btn btn-ghost btn-square">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                </button>
+                <button className="btn btn-ghost btn-square mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <SecondaryButton btnText="Appointment"></SecondaryButton>
             </div>
         </div>
     );

@@ -48,8 +48,8 @@ function Hero() {
                 className='w-full h-full rounded-2xl bg-center bg-cover duration-500'
             ></div> */}
             <div className="h-full rounded-xl w-4/5 justify-self-start bg-gradient-to-r from-black to-black/0"></div>
-            <div className='m-28 text-white max-w-md space-y-8'>
-                <h1 className='font-bold text-6xl  leading-tight'>Affordable Price For Car Servicing</h1>
+            <div className='m-8 lg:m-28 text-white max-w-md space-y-8'>
+                <h1 className='font-bold  text-2xl md:text-6xl  leading-tight'>Affordable Price For Car Servicing</h1>
                 <p className='text-lg'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
                 <div>
                     <PrimaryButton btnText='Discover More' />
