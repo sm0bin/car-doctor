@@ -4,22 +4,34 @@ import PrimaryButton from "../PrimaryButton";
 import { BiLogoGoogle, BiLogoLinkedin, BiLogoFacebook } from 'react-icons/bi';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import person from "../../assets/icons/person.svg"
 import { Toaster, toast } from "react-hot-toast";
 
 const Login = () => {
-    const { loginUser, googleSignIn, updateUser } = useContext(AuthContext);
-    const [signUpError, setSignUpError] = useState("");
+    const { loginUser, googleSignIn } = useContext(AuthContext);
+    const [loginError, setLoginError] = useState("");
 
     const handleSubmit = e => {
         e.preventDefault();
-        setSignUpError("");
+        setLoginError("");
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
 
         loginUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                toast.success('Login Successful.');
+                form.reset();
+            })
+            .catch(error => {
+                console.error(error);
+                toast.error(error.message);
+            })
+    }
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
             .then(result => {
                 console.log(result.user);
                 toast.success('Login Successful.');
@@ -52,7 +64,7 @@ const Login = () => {
                             <input type="password" name="password" placeholder="Password" className="input input-bordered" required />
                         </div>
                         {
-                            signUpError && <p className='mt-4 font-medium text-rose-500'>{signUpError}</p>
+                            loginError && <p className='mt-4 font-medium text-rose-500'>{loginError}</p>
                         }
                         <div className="form-control mt-6">
                             <PrimaryButton btnText="Login"></PrimaryButton>
@@ -60,7 +72,7 @@ const Login = () => {
                     </form>
                     <h3 className="text-lg font-medium text-center mt-5">Or Sign In with</h3>
                     <div className="flex justify-between mt-5">
-                        <button className="btn normal-case text-base">
+                        <button onClick={handleGoogleSignIn} className="btn normal-case text-base">
                             <BiLogoGoogle />
                             Google
                         </button>

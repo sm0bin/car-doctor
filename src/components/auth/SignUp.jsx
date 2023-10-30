@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import img from "../../assets/images/login/login.svg"
 import PrimaryButton from "../PrimaryButton";
-import { BiLogoGoogle, BiLogoLinkedin, BiLogoFacebook } from 'react-icons/bi';
+import { BiLogoGoogle, BiLogoGithub, BiLogoFacebook } from 'react-icons/bi';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import person from "../../assets/icons/person.svg"
 import { Toaster, toast } from "react-hot-toast";
 
 const SignUp = () => {
-    const { signUpUser, googleSignIn, updateUser } = useContext(AuthContext);
+    const { signUpUser, googleSignIn, githubSignIn, updateUser } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState("");
 
     const handleSubmit = e => {
@@ -58,6 +58,32 @@ const SignUp = () => {
                 toast.error(error.message);
             })
     }
+
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                console.log(result.user);
+                toast.success('Login Successful.');
+            })
+            .catch(error => {
+                console.error(error);
+                toast.error(error.message);
+            })
+    }
+
+    const handleGithubSignIn = () => {
+        githubSignIn()
+            .then(result => {
+                console.log(result.user);
+                toast.success('Login Successful.');
+            })
+            .catch(error => {
+                console.error(error);
+                toast.error(error.message);
+            })
+    }
+
     return (
         <div className="hero">
             <Toaster />
@@ -95,7 +121,7 @@ const SignUp = () => {
                     </form>
                     <h3 className="text-lg font-medium text-center mt-5">Or Sign Up with</h3>
                     <div className="flex justify-between mt-5">
-                        <button className="btn normal-case text-base">
+                        <button onClick={handleGoogleSignIn} className="btn normal-case text-base">
                             <BiLogoGoogle />
                             Google
                         </button>
@@ -103,9 +129,9 @@ const SignUp = () => {
                             <BiLogoFacebook />
                             Facebook
                         </button>
-                        <button className="btn normal-case text-base">
-                            <BiLogoLinkedin />
-                            LinkedIn
+                        <button onClick={handleGithubSignIn} className="btn normal-case text-base">
+                            <BiLogoGithub />
+                            GitHub
                         </button>
                     </div>
                     <h3 className="font-medium mt-5">Already have an account? <Link className="link link-hover text-brandRed-500" to="/login">Login</Link></h3>
