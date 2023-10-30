@@ -12,6 +12,7 @@ import AddNewService from "./components/AddNewService";
 import SignUp from "./components/auth/SignUp";
 import ErrorPage from "./components/ErrorPage";
 import AuthProvider from "./providers/AuthProvider";
+import Login from "./components/auth/Login";
 
 const router = createBrowserRouter([
   {
@@ -35,10 +36,10 @@ const router = createBrowserRouter([
         path: "/sign-up",
         element: <SignUp></SignUp>
       },
-      // {
-      //   path: "/login",
-      //   element: <Login></Login>
-      // },
+      {
+        path: "/login",
+        element: <Login></Login>
+      },
     ]
   },
 ]);
